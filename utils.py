@@ -1,4 +1,5 @@
 import io
+import base64
 import datetime
 import torchvision.transforms as transforms
 from torchvision import models
@@ -38,8 +39,11 @@ def get_result(image_file):
     end_time = datetime.datetime.now()
     time_diff = (end_time - start_time)
     execution_time = f'{round(time_diff.total_seconds() * 1000)} ms'
+    encoded_string = base64.b64encode(image_bytes)
+    bs64 = encoded_string.decode('utf-8')
     result = {
         "inference_time":execution_time,
+        "image_data": f'data:image/jpeg;base64,{bs64}',
         "predictions":{
             "class_id":class_id,
             "class_name":class_name

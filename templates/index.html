@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Recognition App using FastAPI and PyTorch </title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <meta name="title" content="Image Recognition App using FastAPI and PyTorch | By Bhimraj Yadav">
+    <meta name="description" content="Image Recognition App using FastAPI and PyTorch | By Bhimraj Yadav">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fastapi-pytorch-app.herokuapp.com/">
+    <meta property="og:title" content="Image Recognition App using FastAPI and PyTorch | By Bhimraj Yadav">
+    <meta property="og:description" content="Image Recognition App using FastAPI and PyTorch | By Bhimraj Yadav">
+    <meta property="og:image" content="https://fastapi-pytorch-app.herokuapp.com/static/images/landing-page.png">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://academy-bhimraj-com-np.vercel.app">
+    <meta property="twitter:title" content="Image Recognition App using FastAPI and PyTorch | By Bhimraj Yadav">
+    <meta property="twitter:description" content="Image Recognition App using FastAPI and PyTorch | By Bhimraj Yadav">
+    <meta property="twitter:image" content="https://fastapi-pytorch-app.herokuapp.com/static/images/landing-page.png">
+    <link rel="canonical" href="/">
+    <link rel="icon" type="image/png" href="{{ url_for('static', path='/icons/icon.png') }}" />
+</head>
+
+<body class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12" style="font-family: Poppins;">
+    <div class="relative py-3 px-4 sm:px-0 sm:max-w-lg w-full sm:mx-auto">
+        <!-- Background Box -->
+        <div
+            class="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
+        </div>
+        <div class="relative px-4 py-10 bg-white shadow-lg rounded-3xl w-full sm:p-20 items-center">
+            <!-- Heading with logo -->
+            <h1 class="font-bold text-center flex flex-col">
+                <span
+                    class="text-6xl text-transparent bg-clip-text bg-gradient-to-br from-blue-400 via-purple-600 to-indigo-400">FastAPI</span>
+                <div class="flex flex-row items-center justify-center space-x-1 flex-shrink-0">
+                    <img class="h-8 w-8" src="{{ url_for('static', path='/icons/icon-128x128.png') }}" alt="logo">
+                    <span class="text-2xl font-medium text-blue-600">PyTorch App</span>
+                </div>
+            </h1>
+
+            <!-- Center Body Part -->
+            <div class="py-6 justify-center items-center max-w-sm">
+
+                {%if not result%}
+                <form action="/" enctype="multipart/form-data" method="post"
+                    class="space-y-4 flex flex-col max-w-sm justify-center items-center">
+                    <!-- Preview image -->
+                    <div id="preview-img" class="flex flex-col space-y-2 items-center"></div>
+
+                    <label id="label" onchange="load(event,'preview-img')"
+                        class="w-64 h-48 justify-center flex flex-col items-center px-4 py-6 bg-white rounded-md shadow-md tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue-500 hover:text-white text-blue-500 ease-linear transition-all duration-150">
+                        <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z">
+                            </path>
+                            <path d="M9 13h2v5a1 1 0 11-2 0v-5z"></path>
+                        </svg>
+                        <span class="mt-2 text-sm leading-normal">Select a file</span>
+
+                        <input type='file' class="hidden" name="file" required />
+                    </label>
+
+                    <input
+                        class="bg-blue-600 rounded-full px-10 py-2 text-white hover:bg-blue-700 hover:shadow-sm transition-all cursor-pointer"
+                        type="submit">
+                </form>
+
+                {% else %}
+
+                <div class="py-4 space-y-2 flex flex-col items-center">
+                    {% if result.image_data %}
+                    <img class="h-48 w-auto rounded shadow-sm" src='{{result.image_data}}' alt="{{result.filename}}" />
+                    {% endif %}
+                    <div>
+                        <p class="text-gray-600 font-semibold capitalize">Result: {{ result.predictions.class_name }}
+                        </p>
+                        <small class="text-gray-600 text-base">Inference Time:{{result.inference_time}}</small>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+            <div class="mt-5">
+                <div class="items-center flex flex-shrink-0 justify-center"><span>Made with </span>
+                    <span class="text-pink-600 px-1"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                clip-rule="evenodd"></path>
+                        </svg></span>
+                    <span class="font-medium text-blue-600 hover:text-blue-700">By Bhimraj Yadav</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    load = function (event, id) {
+        document.getElementById(id).innerHTML = '<span class="text-sm font-medium">Preview<span>';
+        var file = event.target.files[0];
+        var img = document.createElement('IMG');
+        img.className = 'h-48 w-auto rounded shadow-sm'
+        img.src = URL.createObjectURL(file);
+        document.getElementById(id).appendChild(img);
+        var label = document.getElementById("label");
+        label.classList.add("hidden");
+    };
+</script>
+
+</html>
+
+</html>
