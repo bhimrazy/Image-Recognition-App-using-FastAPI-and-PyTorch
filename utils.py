@@ -32,7 +32,7 @@ def get_prediction(image_bytes):
     return imagenet_class_index[predicted_idx]
 
 
-def get_result(image_file):
+def get_result(image_file,is_api = False):
     start_time = datetime.datetime.now()
     image_bytes = image_file.file.read()
     class_id,class_name = get_prediction(image_bytes)
@@ -41,12 +41,14 @@ def get_result(image_file):
     execution_time = f'{round(time_diff.total_seconds() * 1000)} ms'
     encoded_string = base64.b64encode(image_bytes)
     bs64 = encoded_string.decode('utf-8')
+    image_data = f'data:image/jpeg;base64,{bs64}'   
     result = {
         "inference_time":execution_time,
-        "image_data": f'data:image/jpeg;base64,{bs64}',
         "predictions":{
             "class_id":class_id,
             "class_name":class_name
         }
     }
+    if not is_api: 
+        result["image_data"]= image_data
     return result
