@@ -38,14 +38,17 @@
         </div>
         <div class="relative px-4 py-10 bg-white shadow-lg rounded-3xl w-full sm:p-20 items-center">
             <!-- Heading with logo -->
-            <h1 class="font-bold text-center flex flex-col">
-                <span
-                    class="text-6xl text-transparent bg-clip-text bg-gradient-to-br from-blue-400 via-purple-600 to-indigo-400">FastAPI</span>
-                <div class="flex flex-row items-center justify-center space-x-1 flex-shrink-0">
-                    <img class="h-8 w-8" src="{{ url_for('static', path='/icons/icon-128x128.png') }}" alt="logo">
-                    <span class="text-2xl font-medium text-blue-600">PyTorch App</span>
-                </div>
-            </h1>
+            <div class="flex flex-col space-y-2 items-center">
+                <h1 class="font-bold text-center flex flex-col">
+                    <span
+                        class="text-6xl text-transparent bg-clip-text bg-gradient-to-br from-blue-400 via-purple-600 to-indigo-400">FastAPI</span>
+                    <div class="flex flex-row items-center justify-center space-x-1 flex-shrink-0">
+                        <img class="h-8 w-8" src="{{ url_for('static', path='/icons/icon-128x128.png') }}" alt="logo">
+                        <span class="text-2xl font-medium text-blue-600">PyTorch App</span>
+                    </div>
+                </h1>
+                <small class="text-gray-600 text-sm font-light"> An Image Recognition App</small>
+            </div>
 
             <!-- Center Body Part -->
             <div class="py-6 justify-center items-center max-w-sm">
@@ -57,7 +60,7 @@
                     <div id="preview-img" class="flex flex-col space-y-2 items-center"></div>
 
                     <label id="label" onchange="load(event,'preview-img')"
-                        class="w-64 h-48 justify-center flex flex-col items-center px-4 py-6 bg-white rounded-md shadow-md tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue-500 hover:text-white text-blue-500 ease-linear transition-all duration-150">
+                        class="w-64 h-48 justify-center flex flex-col items-center px-4 py-6 bg-white rounded-md shadow-md tracking-wide border border-blue cursor-pointer hover:bg-blue-500 hover:text-white text-blue-500 ease-linear transition-all duration-150">
                         <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -65,9 +68,9 @@
                             </path>
                             <path d="M9 13h2v5a1 1 0 11-2 0v-5z"></path>
                         </svg>
-                        <span class="mt-2 text-sm leading-normal">Select a file</span>
+                        <span class="mt-2 text-sm">Select an image file</span>
 
-                        <input type='file' class="hidden" name="file" required />
+                        <input type='file' class="hidden" name="file" accept="image/*" required />
                     </label>
 
                     <input
