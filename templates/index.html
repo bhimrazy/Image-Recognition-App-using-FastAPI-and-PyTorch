@@ -85,15 +85,17 @@
                     <img class="h-48 w-auto rounded shadow-sm" src='{{result.image_data}}' alt="{{result.filename}}" />
                     {% endif %}
                     <div>
-                        <p class="text-gray-600 font-semibold capitalize">Result: {{ result.predictions.class_name }}
+                        <p class="text-gray-600 font-semibold text-center capitalize">Result: {{ result.predictions.class_name }}
                         </p>
                         <small class="text-gray-600 text-base">Inference Time:{{result.inference_time}}</small>
                     </div>
                 </div>
                 {% endif %}
 
+
+               
             </div>
-            <div class="mt-5">
+            <div class="mt-3">
                 <div class="items-center flex flex-shrink-0 justify-center"><span>Made with </span>
                     <span class="text-pink-600 px-1"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
