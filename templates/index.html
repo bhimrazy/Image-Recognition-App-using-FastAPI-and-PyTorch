@@ -93,7 +93,9 @@
                 {% endif %}
 
 
-               
+                {% if error %}
+                    <p class="text-sm text-pink-400 text-center pt-2 capitalize">Try with another image.</p>
+                {% endif %}
             </div>
             <div class="mt-3">
                 <div class="items-center flex flex-shrink-0 justify-center"><span>Made with </span>
